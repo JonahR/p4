@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 /**
  * This class contains some utility helper methods
  * 
- * @author sapan (sapan@cs.wisc.edu)
+ * @author Sam
  */
 public class WordProcessor {
 	
