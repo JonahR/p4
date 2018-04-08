@@ -81,6 +81,9 @@ public class GraphProcessor {
      *             kit
      *  shortest path between cat and wheat is the following list of words:
      *     [cat, hat, heat, wheat]
+     *
+     * If word1 = word2, List will be empty. 
+     * Both the arguments will always be present in the graph.
      * 
      * @param word1 first word
      * @param word2 second word
@@ -103,6 +106,9 @@ public class GraphProcessor {
      *             kit
      *  distance of the shortest path between cat and wheat, [cat, hat, heat, wheat]
      *   = 3 (the number of edges in the shortest path)
+     *
+     * Distance = -1 if no path found between words (true also for word1=word2)
+     * Both the arguments will always be present in the graph.
      * 
      * @param word1 first word
      * @param word2 second word
