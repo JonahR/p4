@@ -29,6 +29,7 @@ public class TestWordProccessor {
 		System.out.println(WordProcessor.isAdjacent("zoology", "biology"));
 		
 		System.out.println(WordProcessor.isAdjacent("zooo", "broo"));
+		System.out.println(WordProcessor.isAdjacent("zoo", "zoo"));
 
 }
 }

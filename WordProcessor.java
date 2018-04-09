@@ -86,6 +86,9 @@ public class WordProcessor {
 	 * @return true if word1 and word2 are adjacent else false
 	 */
 	public static boolean isAdjacent(String word1, String word2) {
+		if(word1==word2) {
+			return false;
+		}
 		int lengthDiff = word1.length()-word2.length();
 		if(Math.abs(lengthDiff)>1) {
 			return false;
