@@ -86,7 +86,90 @@ public class WordProcessor {
 	 * @return true if word1 and word2 are adjacent else false
 	 */
 	public static boolean isAdjacent(String word1, String word2) {
-		return false;	
+		int lengthDiff = word1.length()-word2.length();
+		if(Math.abs(lengthDiff)>1) {
+			return false;
+		}
+		if(lengthDiff == 0) {
+			return compareEqualLengthWords(word1, word2);
+		}
+		else if(lengthDiff>0) {
+			return compareDifferentLengthWords(word1, word2);
+		}
+		else {
+			return compareDifferentLengthWords(word2, word1);
+		}	
+	}
+	
+	/**
+	 * Adjacency between word1 and word2 is defined by:
+	 * if the difference between word1 and word2 is of
+	 * 	1 char replacement
+	 * 
+	 * then 
+	 *  word1 and word2 are adjacent
+	 * else
+	 *  word1 and word2 are not adjacent
+	 *  
+	 * Note: if word1 is equal to word2, they are not adjacent
+	 * 
+	 * @param word1 first word
+	 * @param word2 second word
+	 * @return true if word1 and word2 are adjacent else false
+	 */
+	private static boolean compareEqualLengthWords(String word1, String word2) {
+		int charDiffCount = 0;
+		for(int i=0;i<word1.length();i++) {
+			if(!(word1.charAt(i)==(word2.charAt(i)))) {
+				charDiffCount++;
+			}
+			if(charDiffCount>1)
+				return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Adjacency between word1 and word2 is defined by:
+	 * if the difference between word1 and word2 is of
+	 * 	
+	 *  1 char addition
+	 *  1 char deletion
+	 * then 
+	 *  word1 and word2 are adjacent
+	 * else
+	 *  word1 and word2 are not adjacent
+	 *  
+	 * Note: if word1 is equal to word2, they are not adjacent
+	 * 
+	 * @param word1 first word (longer word)
+	 * @param word2 second word (shorter word)
+	 * @return true if word1 and word2 are adjacent else false
+	 */
+	private static boolean compareDifferentLengthWords(String word1, String word2) {
+		int sameCharCount = 0, wordOneIndex =0;
+		for(int ignoreIndex=0;ignoreIndex<word1.length();ignoreIndex++) {
+			
+			sameCharCount = 0;
+			wordOneIndex = 0;
+			for(int wordTwoIndex=0;wordTwoIndex<word2.length();wordTwoIndex++) {
+				if(wordOneIndex==ignoreIndex) {
+					wordOneIndex++;
+				}
+				if(!(word1.charAt(wordOneIndex)==(word2.charAt(wordTwoIndex)))) {
+					break;
+				}
+				else {
+					sameCharCount++;
+				}
+				wordOneIndex++;
+			}
+			if(sameCharCount==word2.length()) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 	
 }
