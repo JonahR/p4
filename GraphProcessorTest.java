@@ -52,20 +52,16 @@ public class GraphProcessorTest
 	}
 
 	/**
-	 * This method tests whether the populatesGraph() method throws an 
-	 * exception when the file path is invalid
+	 * This method tests whether the populatesGraph() method returns -1 
+	 * if the file path is not valid
 	 */
 	@Test
 	public void test1_populates_graph_throws_FileNotFound() 
 	{
-		try { 
-			graphProcessor.populateGraph("RandomFilePath321");
+		int expected = -1;
+		int actual = graphProcessor.populateGraph("RandomFilePath321");
+		if(actual != expected)
 			fail("The method failed to throw an exception for an invalid file path.");
-		} catch(Exception e) {
-			
-		}
-		
-		//or have it return 0 --> document in class
 	}
 	
 	/**
