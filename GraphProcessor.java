@@ -130,7 +130,27 @@ public class GraphProcessor {
      *         encountering other exceptions
      */
     public Integer populateGraph(String filepath) {
-        return 0;
+        Stream<String> s = null;
+
+		try{
+			s = WordProcessor.getWordStream(filepath);
+		} catch( IOException e ) {
+			System.err.println("file could not be read");
+			return 0;
+		}
+
+		ArrayList<String> list = new ArrayList<String>();
+		list = (ArrayList) s.collect(Collectors.toList());
+		for ( String node : list ) {
+			graph.addVertex(node);
+		}
+
+		for ( int i = 0; i < list.size(); i++) 
+			for(int j = i; j < list.size(); j++) 
+				if(WordProcessor.isAdjacent(list.get(i), list.get(j))) 
+					graph.addEdge(list.get(i), list.get(j));
+
+		return list.size();
 
     }
 
