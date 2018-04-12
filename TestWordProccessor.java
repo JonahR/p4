@@ -18,7 +18,6 @@ public class TestWordProccessor {
 		System.out.println(WordProcessor.isAdjacent("bee", "be"));
 		System.out.println(WordProcessor.isAdjacent("abe", "be"));
 		
-		
 		System.out.println("-------------------------------");
 		
 		
