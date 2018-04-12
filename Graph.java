@@ -15,10 +15,7 @@ public class Graph<E> implements GraphADT<E> {
   
     // list of graph node verticies 
     private Set<GraphNode> vertices;
-    // number of edges
-    private int size;
-    // number of verticies
-    private int degree;
+
     
     /**
      * Create new GraphNode
@@ -46,8 +43,6 @@ public class Graph<E> implements GraphADT<E> {
      * Creates an empty list of verticies for the Graph
      */
     public Graph(){
-        this.size = 0;
-        this.degree = 0;
         vertices = new HashSet<>();                       
     }
     
@@ -64,7 +59,7 @@ public class Graph<E> implements GraphADT<E> {
         
         // vertex cannot be a duplicate
         for(GraphNode n : vertices) {
-            if(n.value == vertex) return null;
+            if(n.value.equals(vertex)) return null;
         }
         
         // vertex must be a GraphNode 
@@ -72,9 +67,6 @@ public class Graph<E> implements GraphADT<E> {
       
         // GraphNode must be added to Graph
         vertices.add(node);
-        
-        // degree of graph increases
-        degree++;
         
         return vertex;
     }
@@ -90,7 +82,11 @@ public class Graph<E> implements GraphADT<E> {
         
         // must remove GraphNode from Graph 
         for(GraphNode n : vertices) {
-            if(n.value == vertex) {
+            if(n.value.equals(vertex)) {              
+                // Get list of Edges and remove refrences
+                for(GraphNode e : n.edges) {
+                    e.edges.remove(n);
+                }
                 vertices.remove(n);
                 return vertex;
             }
@@ -112,7 +108,7 @@ public class Graph<E> implements GraphADT<E> {
         
         // Graph must contain vertex1
         for(GraphNode n : vertices) {
-            if(n.value == vertex1) {
+            if(n.value.equals(vertex1)) {
                 v1 = true;
                 temp1 = n;
             }
@@ -120,7 +116,7 @@ public class Graph<E> implements GraphADT<E> {
         
         // Graph must contain vertex2
         for(GraphNode n : vertices) {
-            if(n.value == vertex2) {
+            if(n.value.equals(vertex2)) {
                 v2 = true;
                 temp2 = n;
             }
@@ -149,13 +145,13 @@ public class Graph<E> implements GraphADT<E> {
         GraphNode temp2 = null;
         
         for(GraphNode n : vertices) {
-            if(n.value == vertex1) {
+            if(n.value.equals(vertex1)) {
                 v1 = true;
                 temp1 = n;
             }
         }
         for(GraphNode n : vertices) {
-            if(n.value == vertex2) {
+            if(n.value.equals(vertex2)) {
                 v2 = true;
                 temp2 = n;
             }
@@ -165,7 +161,7 @@ public class Graph<E> implements GraphADT<E> {
         if(v1 && v2) {
             for(GraphNode n : temp1.edges) {
                 // temp1 edges must contain temp2
-                if(n.value == temp2) {
+                if(n.value.equals(temp2)) {
                     temp1.edges.remove(temp2);
                     temp2.edges.remove(temp1);
                 }                
@@ -183,9 +179,9 @@ public class Graph<E> implements GraphADT<E> {
         
         // vertex1 must exist
         for(GraphNode n : vertices) {
-            if(n.value == vertex1) {
+            if(n.value.equals(vertex1)) {
                 for(GraphNode edges : n.edges) {
-                    if(n.value == edges.value) return true;
+                    if(n.value.equals(edges.value)) return true;
                 }
             }
         }
@@ -208,4 +204,7 @@ public class Graph<E> implements GraphADT<E> {
     public Iterable<E> getAllVertices() {
         return null;
     }
+
 }
+
+
