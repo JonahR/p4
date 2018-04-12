@@ -13,7 +13,7 @@ import org.junit.Test;
 // fix file paths
 // test anything added to the GraphProcessor class
 // when would input stream throw exception
-// add file headers
+// add headers to each file
 
 /**
  * Junit test class to test the GraphProcessor and WordProcessor classes
@@ -52,8 +52,8 @@ public class GraphProcessorTest
 	}
 
 	/**
-	 * This method tests whether the populatesGraph() method returns -1 
-	 * if the file path is not valid
+	 * This method tests whether the populatesGraph() method returns -1
+	 * when the file path is not valid
 	 */
 	@Test
 	public void test1_populates_graph_throws_FileNotFound() 
@@ -66,10 +66,10 @@ public class GraphProcessorTest
 	
 	/**
 	 * This method tests that the correct number of words are added to the graph
-	 * from the word_list.txt file
+	 * from the word_list.txt file, a large number of words
 	 */
 	@Test
-	public void test2_populates_graph_correctly() 
+	public void test2_populates_large_graph_correctly() 
 	{
 		//may need to fix the file path
 		int wordCount = graphProcessor.populateGraph("word_list.txt");
@@ -98,9 +98,9 @@ public class GraphProcessorTest
 	@Test
 	public void test4_returns_empty_with_same_params()
 	{
-		// graphProcessor.populateGraph(xxxxxxxxxx);
+		graphProcessor.populateGraph("test_words.txt");
 		// may need to be changed to incorporate words actually in the list
-		List<String> list = graphProcessor.getShortestPath("random", "random");
+		List<String> list = graphProcessor.getShortestPath("gate", "gate");
 		if(list != null)
 			fail("getShortestPath() fails to return an empty list if the graph has "
 					+ "been populated, but word1 and word2 are the same");
@@ -113,11 +113,27 @@ public class GraphProcessorTest
 	@Test
 	public void test5_returns_correct_shortestPath() 
 	{
-		// graphProcessor.populateGraph(xxxxxx);
+		graphProcessor.populateGraph("test_words.txt");
 		// words may need to be changed
-		List<String> actual = graphProcessor.getShortestPath("best", "piece");
+		List<String> actual = graphProcessor.getShortestPath("gate", "bin");
 		List<String> expected = null;
-		if(actual != expected)
+		expected.add("GATE");
+		expected.add("BATE");
+		expected.add("BAT");
+		expected.add("BAN");
+		expected.add("BIN");
+	
+		boolean same = false;
+		for(int x = 0; x < expected.size(); x++) 
+		{
+			if(!(expected.get(x).equalsIgnoreCase(actual.get(x))))
+			{
+				if(same == true)
+					same = false;
+			}		
+		}
+		
+		if(!same)
 			fail("getShortestPath() fails to return the correct shortest path");
 	}
 	
@@ -128,9 +144,8 @@ public class GraphProcessorTest
 	@Test
 	public void test6_returns_empty_if_no_path() 
 	{
-		// graphProcessor.populateGraph(xxxxxx);
-		// change to two words without a path
-		List<String> list = graphProcessor.getShortestPath("best", "piece");
+		graphProcessor.populateGraph("test_words.txt");
+		List<String> list = graphProcessor.getShortestPath("ran", "hungry");
 		if(list != null)
 			fail("getShortestPath() fails to return an empty list if there is not a path"
 					+ "between the two words");
@@ -156,9 +171,8 @@ public class GraphProcessorTest
 	@Test
 	public void test8_distance_when_no_path() 
 	{
-		//graphProcessor.populateGraph(xxxxxxxxxxxxx)
-		// may need to be changed to find 2 words without a path
-		int dist = graphProcessor.getShortestDistance("best", "tonnage");
+		graphProcessor.populateGraph("test_words.txt");
+		int dist = graphProcessor.getShortestDistance("plat", "hunger");
 		if(dist != -1)
 			fail("getShortestPath() fails to return -1 if there is no path between"
 					+ "the two words. Returned " + dist + " instead");
@@ -170,9 +184,8 @@ public class GraphProcessorTest
 	@Test
 	public void test9_distance_between_same_words() 
 	{
-		//graphProcessor.populateGraph(xxxxxxxxxxxxx)
-		// may need to be changed to find 2 words without a path
-		int dist = graphProcessor.getShortestDistance("tonnage", "tonnage");
+		graphProcessor.populateGraph("test_words.txt");
+		int dist = graphProcessor.getShortestDistance("ran", "ran");
 		if(dist != -1)
 			fail("getShortestPath() fails to return -1 if the words are the same. "
 					+ "Returned " + dist + " instead");
@@ -184,10 +197,9 @@ public class GraphProcessorTest
 	@Test
 	public void test10_shortest_distance_correct() 
 	{
-		//graphProcessor.populateGraph(xxxxxxxxxxxxx)
-		// may need to be changed to find 2 words without a path
-		int actual = graphProcessor.getShortestDistance("shanny", "shinny");
-		int expected = 1;
+		graphProcessor.populateGraph("test_words.txt");
+		int actual = graphProcessor.getShortestDistance("plite", "rat");
+		int expected = 4;
 		if(actual != expected)
 			fail("Actual distance: " + actual + ". Expected distance: " + expected);
 	}
@@ -274,4 +286,15 @@ public class GraphProcessorTest
 					+ "by deletion between two words");
 	}
 	
+	/** 
+	 * Tests that the populateGraph() method works correctly with a medium number
+	 * of words
+	 */
+	@Test
+	public void test16_populate_medium() 
+	{
+		int wordCount = graphProcessor.populateGraph("test_words.txt");
+		if(wordCount != 15)
+			fail("populatesGraph() did not add the correct number of words to the graph");	
+	}
 }
