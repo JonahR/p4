@@ -103,6 +103,7 @@ public class GraphProcessorTest
 	public void test4_returns_empty_with_same_params()
 	{
 		graphProcessor.populateGraph("test_words.txt");
+		graphProcessor.shortestPathPrecomputation();
 		// may need to be changed to incorporate words actually in the list
 		List<String> list = graphProcessor.getShortestPath("gate", "gate");
 		if(list != null)
@@ -118,6 +119,7 @@ public class GraphProcessorTest
 	public void test5_returns_correct_shortestPath() 
 	{
 		graphProcessor.populateGraph("test_words.txt");
+		graphProcessor.shortestPathPrecomputation();
 		// words may need to be changed
 		List<String> actual = graphProcessor.getShortestPath("gate", "bin");
 		List<String> expected = null;
@@ -149,6 +151,7 @@ public class GraphProcessorTest
 	public void test6_returns_empty_if_no_path() 
 	{
 		graphProcessor.populateGraph("test_words.txt");
+		graphProcessor.shortestPathPrecomputation();
 		List<String> list = graphProcessor.getShortestPath("ran", "hungry");
 		if(list != null)
 			fail("getShortestPath() fails to return an empty list if there is not a path"
@@ -176,6 +179,7 @@ public class GraphProcessorTest
 	public void test8_distance_when_no_path() 
 	{
 		graphProcessor.populateGraph("test_words.txt");
+		graphProcessor.shortestPathPrecomputation();
 		int dist = graphProcessor.getShortestDistance("plat", "hunger");
 		if(dist != -1)
 			fail("getShortestPath() fails to return -1 if there is no path between"
@@ -189,6 +193,7 @@ public class GraphProcessorTest
 	public void test9_distance_between_same_words() 
 	{
 		graphProcessor.populateGraph("test_words.txt");
+		graphProcessor.shortestPathPrecomputation();
 		int dist = graphProcessor.getShortestDistance("ran", "ran");
 		if(dist != -1)
 			fail("getShortestPath() fails to return -1 if the words are the same. "
@@ -202,6 +207,7 @@ public class GraphProcessorTest
 	public void test10_shortest_distance_correct() 
 	{
 		graphProcessor.populateGraph("test_words.txt");
+		graphProcessor.shortestPathPrecomputation();
 		int actual = graphProcessor.getShortestDistance("plite", "rat");
 		int expected = 4;
 		if(actual != expected)
