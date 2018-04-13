@@ -85,7 +85,6 @@ public class GraphProcessorTest
 	@Test
 	public void test2_populates_large_graph_correctly() 
 	{
-		//may need to fix the file path
 		int wordCount = graphProcessor.populateGraph("word_list.txt");
 		if(wordCount != 441)
 			fail("populatesGraph() did not add the correct number of words to the graph");		
@@ -114,7 +113,6 @@ public class GraphProcessorTest
 	{
 		graphProcessor.populateGraph("test_words.txt");
 		graphProcessor.shortestPathPrecomputation();
-		// may need to be changed to incorporate words actually in the list
 		List<String> list = graphProcessor.getShortestPath("gate", "gate");
 		if(list != null)
 			fail("getShortestPath() fails to return an empty list if the graph has "
@@ -133,6 +131,7 @@ public class GraphProcessorTest
 		// words may need to be changed
 		List<String> actual = graphProcessor.getShortestPath("gate", "bin");
 		List<String> expected = null;
+		// adds the correct word path to a list
 		expected.add("GATE");
 		expected.add("BATE");
 		expected.add("BAT");
@@ -328,6 +327,7 @@ public class GraphProcessorTest
 			Stream<String> test = WordProcessor.getWordStream("stream_test.txt");
 			List<String> actual = test.collect(Collectors.toList());
 			List<String> expected = new ArrayList<String>();
+			// this step adds the correct words to a list
 			expected.add("HAPPY");
 			expected.add("GARAGE");
 			expected.add("YELLOW");
@@ -365,4 +365,3 @@ public class GraphProcessorTest
 		}
 	}
 }
-
