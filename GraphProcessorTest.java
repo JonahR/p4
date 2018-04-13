@@ -1,7 +1,11 @@
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -56,7 +60,7 @@ public class GraphProcessorTest
 	 * when the file path is not valid
 	 */
 	@Test
-	public void test1_populates_graph_throws_FileNotFound() 
+	public void test1_populates_graph_invalid_file() 
 	{
 		int expected = -1;
 		int actual = graphProcessor.populateGraph("RandomFilePath321");
@@ -297,5 +301,51 @@ public class GraphProcessorTest
 		if(wordCount != 15)
 			fail("populatesGraph() did not add the correct number of words to the graph");	
 	}
+	
+	/**
+	 * Tests that the getWordStream() method correctly returns the stream
+	 */
+	@Test
+	public void test17_word_stream_correct() 
+	{
+		try {
+			Stream<String> test = WordProcessor.getWordStream("stream_test.txt");
+			List<String> actual = test.collect(Collectors.toList());
+			List<String> expected = new ArrayList<String>();
+			expected.add("HAPPY");
+			expected.add("GARAGE");
+			expected.add("YELLOW");
+			expected.add("BLUE");
+			expected.add("GREEN");
+			expected.add("EXTRA");
+			expected.add("PEOPLE");
+			expected.add("HOUSE");
+			boolean same = false;
+			for(int x = 0; x < expected.size(); x++) 
+			{
+				if(!(expected.get(x).equalsIgnoreCase(actual.get(x))))
+				{
+					same = false;
+				}		
+			}
+			if(!same)
+				fail("getWordStream() failed to return the correct stream of words");
+		} catch (IOException e) {
+			fail("getWordStream() failed to find the correct file");
+		}
+	}
+	
+	/**
+	 * Tests that the getWordStream() method correctly throws an exception when 
+	 * the file does not exist
+	 */
+	@Test
+	public void test18_word_stream_throws() 
+	{
+		try {
+			Stream<String> test = WordProcessor.getWordStream("RandomFileXYZ123");	
+		} catch (IOException e) {
+			fail("getWordStream() did not throw an IOException when the file did not exist");
+		}
+	}
 }
-
