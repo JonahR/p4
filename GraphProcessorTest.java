@@ -1,3 +1,19 @@
+////////////////////////////////////////////////////////////////////////////////
+// Title:           P4 - Dictionary Graph
+// Files:           Graph.java, GraphADT.java, GraphProcessor.java, 
+//						GraphProcessorTest.java, GraphTest.java, 
+//						WordProcessor.java, few_interesting_combos.txt, 
+//						word_list.txt, test_words.txt, stream_test.txt
+// Course:          CS400 Spring 2018
+// Due Date:		4/16/2018
+// Other Sources:	
+// Known Bugs:		None
+//
+// @Authors          Haley Richards, Jonah Rueb, Yifan Pu, Akshat Raika, 
+// 						Sam Ramakrishnan
+// Lecturer's Name: Prof. Debra Deppeler 
+///////////////////////////////////////////////////////////////////////////////
+
 import static org.junit.Assert.*;
 
 import java.io.IOException;
@@ -12,12 +28,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-// adjust tests for the actual shortest paths
-// fix file paths
-// test anything added to the GraphProcessor class
-// when would input stream throw exception
-// add headers to each file
 
 /**
  * Junit test class to test the GraphProcessor and WordProcessor classes
@@ -355,3 +365,4 @@ public class GraphProcessorTest
 		}
 	}
 }
+
