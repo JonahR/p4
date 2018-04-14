@@ -135,7 +135,7 @@ public class GraphProcessor {
 			s = WordProcessor.getWordStream(filepath);
 		} catch( IOException e ) {
 			System.err.println("file could not be read");
-			return 0;
+			return -1;
 		}
 
 		ArrayList<String> list = new ArrayList<String>();

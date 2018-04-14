@@ -1,5 +1,22 @@
-import java.util.HashMap;
+///////////////////////////////////////////////////////////////////////////////
+//                   
+// Title:            p4
+// Files:            Graph.java, GraphADT.java, GraphProcessor.java,
+//                   GraphProcessorTest.java, GraphTest.java, TestWordProcessorTest.java
+//                   WordProcessor.java
+//
+// Semester:         Spring 2018
+//
+// Author:           Jonah Rueb, jrueb@wisc.edu
+// Lecturer's Name:  Debra Deppeler CS400
+//
+///////////////////////////////////////////////////////////////////////////////
+
+
+
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -14,7 +31,7 @@ public class Graph<E> implements GraphADT<E> {
     
   
     // list of graph node verticies 
-    private Set<GraphNode> vertices;
+    public Set<GraphNode> vertices;
 
     
     /**
@@ -22,8 +39,8 @@ public class Graph<E> implements GraphADT<E> {
      */
     private class GraphNode{        
 
-        private E value;
-        private Set<GraphNode> edges;
+        public E value;
+        public Set<GraphNode> edges;
         
         /**
          * Node contains a value and list of edges
@@ -97,6 +114,9 @@ public class Graph<E> implements GraphADT<E> {
 
     @Override
     public boolean addEdge(E vertex1, E vertex2) {
+        // graph does not allow equal vertex1 and vertex2 or null refrerences
+        if(vertex1 == null || vertex2 == null || vertex1.equals(vertex2)) return false;
+        
         // does Graph contain vertex1?
         boolean v1 = false;      
         // does Graph contain vertex2?
@@ -112,10 +132,6 @@ public class Graph<E> implements GraphADT<E> {
                 v1 = true;
                 temp1 = n;
             }
-        }
-        
-        // Graph must contain vertex2
-        for(GraphNode n : vertices) {
             if(n.value.equals(vertex2)) {
                 v2 = true;
                 temp2 = n;
@@ -123,6 +139,7 @@ public class Graph<E> implements GraphADT<E> {
         }
         
         // edge must be added between vertices
+        // .add() does not allow duplicates to be added
         if(v1 && v2) {
             temp1.edges.add(temp2);
             temp2.edges.add(temp1);
@@ -138,6 +155,9 @@ public class Graph<E> implements GraphADT<E> {
      */
     @Override
     public boolean removeEdge(E vertex1, E vertex2) {       
+        // vertex must be non-null and cannot equal eachother 
+        if(vertex1 == null || vertex2 == null || vertex1.equals(vertex2)) return false;
+        
         // vertex1 and vertex2 must exist
         boolean v1 = false;      
         boolean v2 = false;
@@ -149,23 +169,18 @@ public class Graph<E> implements GraphADT<E> {
                 v1 = true;
                 temp1 = n;
             }
-        }
-        for(GraphNode n : vertices) {
             if(n.value.equals(vertex2)) {
                 v2 = true;
                 temp2 = n;
             }
         }
+
         
         // must remove edge if vertices exist
         if(v1 && v2) {
-            for(GraphNode n : temp1.edges) {
-                // temp1 edges must contain temp2
-                if(n.value.equals(temp2)) {
-                    temp1.edges.remove(temp2);
-                    temp2.edges.remove(temp1);
-                }                
-            }           
+            temp1.edges.remove(temp2);
+            temp2.edges.remove(temp1);  
+            return true;
         }        
         // must remove an edge
         return false;
@@ -176,35 +191,76 @@ public class Graph<E> implements GraphADT<E> {
      */
     @Override
     public boolean isAdjacent(E vertex1, E vertex2) {
+        // vertex must be non-null and cannot equal eachother 
+        if(vertex1 == null || vertex2 == null || vertex1.equals(vertex2)) return false;
         
-        // vertex1 must exist
+        // vertex1 and vertex2 must exist
+        boolean v1 = false;      
+        boolean v2 = false;
+        GraphNode temp1 = null;
+        GraphNode temp2 = null;
+        
         for(GraphNode n : vertices) {
             if(n.value.equals(vertex1)) {
-                for(GraphNode edges : n.edges) {
-                    if(n.value.equals(edges.value)) return true;
-                }
+                v1 = true;
+                temp1 = n;
+            }
+            if(n.value.equals(vertex2)) {
+                v2 = true;
+                temp2 = n;
             }
         }
+        
+        if(v1 && v2) {
+            if(temp1.edges.contains(temp2)) return true;
+        }      
 
         return false;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns the edges of a vertices as an Iterator
      */
     @Override
     public Iterable<E> getNeighbors(E vertex) {
+        // null values not allowed
+        if(vertex == null) return null;
+        
+        // vertex must exist
+        boolean v = false;      
+        GraphNode temp = null;
+        
+        for(GraphNode n : vertices) {
+            if(n.value.equals(vertex)) {
+                v = true;
+                temp = n;
+            }
+        }
+        
+        // if vertex exists retur the iterable list of its edges
+        // vertex1 and vertex2 must exist
+        if(v) {
+            List<E> list = new ArrayList<>();
+            for(Graph<E>.GraphNode edge : temp.edges) {
+                list.add(edge.value);
+            }
+            return list;
+        }
+        
         return null;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns all vertices in an Iterator
      */
     @Override
     public Iterable<E> getAllVertices() {
-        return null;
+        List<E> list = new ArrayList<>();
+        for(Graph<E>.GraphNode vertice : vertices) {
+            list.add(vertice.value);
+        }
+        return list;
     }
-
 }
 
 

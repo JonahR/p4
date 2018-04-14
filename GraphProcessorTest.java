@@ -298,3 +298,4 @@ public class GraphProcessorTest
 			fail("populatesGraph() did not add the correct number of words to the graph");	
 	}
 }
+

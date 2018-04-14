@@ -105,6 +105,7 @@ public class WordProcessor {
 		else {
 			return compareDifferentLengthWords(word2, word1);
 		}	
+
 	}
 	
 	/**
@@ -158,8 +159,8 @@ public class WordProcessor {
 			
 			sameCharCount = 0;
 			wordOneIndex = 0;
-			for(int wordTwoIndex=0;wordTwoIndex<word2.length();wordTwoIndex++) {
-				if(wordOneIndex==ignoreIndex) {
+			for(int wordTwoIndex = 0; wordTwoIndex < word2.length(); wordTwoIndex++) {
+				if(wordOneIndex == ignoreIndex) {
 					wordOneIndex++;
 				}
 				if(!(word1.charAt(wordOneIndex)==(word2.charAt(wordTwoIndex)))) {
