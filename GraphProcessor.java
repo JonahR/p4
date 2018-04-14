@@ -167,15 +167,20 @@ public class GraphProcessor {
      * @return List<String> list of the words
      */
     public List<String> getShortestPath(String word1, String word2) {
+        
+        //Convert both strings to uppercase
+        word1 = word1.toUpperCase();
+        word2 = word2.toUpperCase();
+	    
         // if word1 == word2, return null list
         if (word1.equals(word2))
             return null;
         else {
             // Get the djikstra's map for word1
             PathMap map = pathMaps.get(word1);
-            LinkedList<String> path = new LinkedList<String>();
+            ArrayList<String> path = new ArrayList<String>();
             // If word2 is unreachable return null list
-            if (map.predecessors.get(word2) == null)
+            if (map == null || map.predecessors == null || map.predecessors.get(word2) == null)
                 return null;
             // else go through the predecessors of word2 until it gets to word1
             String pred = word2;
@@ -211,7 +216,7 @@ public class GraphProcessor {
             return -1;
 
         // else return the length of the path
-        return getShortestPath(word1, word2).size();
+        return getShortestPath(word1, word2).size()-1;
     }
 
     /**
