@@ -9,8 +9,7 @@
 // Other Sources:	
 // Known Bugs:		None
 //
-// @Authors          Haley Richards, Jonah Rueb, Yifan Pu, Akshat Raika, 
-// 						Sam Ramakrishnan
+// @Authors          Haley Richards (hlrichards@wisc.edu)
 // Lecturer's Name: Prof. Debra Deppeler 
 ///////////////////////////////////////////////////////////////////////////////
 
