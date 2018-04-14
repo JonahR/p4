@@ -130,7 +130,7 @@ public class GraphProcessorTest
 		graphProcessor.shortestPathPrecomputation();
 		// words may need to be changed
 		List<String> actual = graphProcessor.getShortestPath("gate", "bin");
-		List<String> expected = null;
+		List<String> expected = new ArrayList<String>();
 		// adds the correct word path to a list
 		expected.add("GATE");
 		expected.add("BATE");
@@ -138,7 +138,7 @@ public class GraphProcessorTest
 		expected.add("BAN");
 		expected.add("BIN");
 	
-		boolean same = false;
+		boolean same = true;
 		for(int x = 0; x < expected.size(); x++) 
 		{
 			if(!(expected.get(x).equalsIgnoreCase(actual.get(x))))
@@ -336,7 +336,7 @@ public class GraphProcessorTest
 			expected.add("EXTRA");
 			expected.add("PEOPLE");
 			expected.add("HOUSE");
-			boolean same = false;
+			boolean same = true;
 			for(int x = 0; x < expected.size(); x++) 
 			{
 				if(!(expected.get(x).equalsIgnoreCase(actual.get(x))))
