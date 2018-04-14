@@ -74,7 +74,7 @@ public class GraphProcessorTest
 		int expected = -1;
 		int actual = graphProcessor.populateGraph("RandomFilePath321");
 		if(actual != expected)
-			fail("The method failed to throw an exception for an invalid file path.");
+			fail("The method failed to return -1 for an invalid file path.");
 	}
 	
 	/**
