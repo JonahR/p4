@@ -359,9 +359,10 @@ public class GraphProcessorTest
 	public void test18_word_stream_throws() 
 	{
 		try {
-			Stream<String> test = WordProcessor.getWordStream("RandomFileXYZ123");	
-		} catch (IOException e) {
+			Stream<String> test = WordProcessor.getWordStream("RandomFileXYZ123");
 			fail("getWordStream() did not throw an IOException when the file did not exist");
+		} catch (IOException e) {
+			// Caught exception as expected
 		}
 	}
 }
