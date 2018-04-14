@@ -129,21 +129,25 @@ public class GraphProcessor {
      *         encountering other exceptions
      */
     public Integer populateGraph(String filepath) {
+    	//stream which has the data from the file - words from file
         Stream<String> s = null;
-
+        //getting the word stream from wordProcessor, returning -1 if no stream recei[ved
 		try{
 			s = WordProcessor.getWordStream(filepath);
 		} catch( IOException e ) {
 			System.err.println("file could not be read");
 			return -1;
 		}
-
+		//array list to store all words
 		ArrayList<String> list = new ArrayList<String>();
 		list = (ArrayList) s.collect(Collectors.toList());
+		
+		//adding the words to the graph
 		for ( String node : list ) {
 			graph.addVertex(node);
 		}
 
+		//checking all words for edges with all other words and adding them if needed
 		for ( int i = 0; i < list.size(); i++) 
 			for(int j = i; j < list.size(); j++) 
 				if(WordProcessor.isAdjacent(list.get(i), list.get(j))) 
@@ -172,7 +176,7 @@ public class GraphProcessor {
         word1 = word1.toUpperCase();
         word2 = word2.toUpperCase();
 	    
-        // if word1 == word2, return null list
+        // if word1 == word2, return null list 
         if (word1.equals(word2))
             return null;
         else {
