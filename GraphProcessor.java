@@ -171,11 +171,13 @@ public class GraphProcessor {
         if (word1.equals(word2))
             return null;
         else {
+            // Get the djikstra's map for word1
             PathMap map = pathMaps.get(word1);
             LinkedList<String> path = new LinkedList<String>();
             // If word2 is unreachable return null list
             if (map.predecessors.get(word2) == null)
                 return null;
+            // else go through the predecessors of word2 until it gets to word1
             String pred = word2;
             path.add(pred);
             while (map.predecessors.get(pred) != null) {
@@ -221,23 +223,32 @@ public class GraphProcessor {
         for (String vertex : graph.getAllVertices()) {
             // Set Up before starting to compute
             PathMap map = new PathMap(vertex);
+            // Create 2 sets to store the visited nodes and the unvisitednode set is basically a priority queue
             Set<String> visitedNodes = new HashSet<>();
             Set<String> unVisitedNodes = new HashSet<>();
+            
+            // Put the source vertex into the map
             map.distance.put(map.vertex, 0);
             unVisitedNodes.add(map.vertex);
-
+            
+            // While the priority queue is not empty
             while (unVisitedNodes.size() > 0) {
+                // Get the minimal distance successor
                 String node = map.getHighestPriority(unVisitedNodes);
+                // Remove the successor and mark it as visited
                 unVisitedNodes.remove(node);
                 visitedNodes.add(node);
-                for (String successor : graph.getNeighbors(node)) {
+                for (String successor : graph.getNeighbors(node)) { // for each unvisited successor of the vertex
                     if (map.getDistance(node) + 1 < map.getDistance(successor)) {
+                        // if the distance can be reduced, update the distance
                         map.distance.put(successor, map.getDistance(node) + 1);
                         map.predecessors.put(successor, node);
+                        // put that successor into the priority queue
                         unVisitedNodes.add(successor);
                     }
                 }
             }
+            // Put the djikstra's table of that source into the list of maps
             pathMaps.put(vertex, map);
         }
     }
