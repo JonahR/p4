@@ -1,3 +1,19 @@
+///////////////////////////////////////////////////////////////////////////////
+//                   
+// Title:            p4
+// Files:            Graph.java, GraphADT.java, GraphProcessor.java,
+//                   GraphProcessorTest.java, GraphTest.java, TestWordProcessorTest.java
+//                   WordProcessor.java
+//
+// Semester:         Spring 2018
+//
+// Author:           Sam Ramakrishnan, sramakrishn8@wisc.edu;
+// Lecturer's Name:  Debra Deppeler CS400
+//
+///////////////////////////////////////////////////////////////////////////////
+
+
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -89,6 +105,10 @@ public class WordProcessor {
 	 * @return true if word1 and word2 are adjacent else false
 	 */
 	public static boolean isAdjacent(String word1, String word2) {
+		if(word1==null)
+			return false;
+		if(word2==null)
+			return false;
 		if(word1==word2) {
 			return false;
 		}
@@ -100,7 +120,7 @@ public class WordProcessor {
 			return compareEqualLengthWords(word1, word2);
 		}
 		else if(lengthDiff>0) {
-			return compareDifferentLengthWords(word1, word2);
+			return compareDifferentLengthWords(word1, word2); // Changes the order of arguments based on which word is longerS
 		}
 		else {
 			return compareDifferentLengthWords(word2, word1);
@@ -130,7 +150,7 @@ public class WordProcessor {
 			if(!(word1.charAt(i)==(word2.charAt(i)))) {
 				charDiffCount++;
 			}
-			if(charDiffCount>1)
+			if(charDiffCount>1) //Checks if the number of characters that are different b/w the words is more than 1
 				return false;
 		}
 		return true;
@@ -159,7 +179,7 @@ public class WordProcessor {
 			
 			sameCharCount = 0;
 			wordOneIndex = 0;
-			for(int wordTwoIndex = 0; wordTwoIndex < word2.length(); wordTwoIndex++) {
+			for(int wordTwoIndex = 0; wordTwoIndex < word2.length(); wordTwoIndex++) { // One character from word 1 is blocked at each iteration and the rest of chars are compared with word2
 				if(wordOneIndex == ignoreIndex) {
 					wordOneIndex++;
 				}
