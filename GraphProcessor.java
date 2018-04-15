@@ -1,3 +1,17 @@
+///////////////////////////////////////////////////////////////////////////////
+//                   
+// Title:            p4
+// Files:            Graph.java, GraphADT.java, GraphProcessor.java,
+//                   GraphProcessorTest.java, GraphTest.java, TestWordProcessorTest.java
+//                   WordProcessor.java
+//
+// Semester:         Spring 2018
+//
+// Author:           Yifan Pu, ypu8@wisc.edu; Akshat Raika, raika@wisc.edu
+// Lecturer's Name:  Debra Deppeler CS400
+//
+///////////////////////////////////////////////////////////////////////////////
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
